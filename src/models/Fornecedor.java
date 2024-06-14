@@ -1,20 +1,20 @@
 package models;
 
-public class Fornecedor {
-    private String nome;
-    private String contato;
+public class Fornecedor extends Pessoa { // fornecedor com a extensão de pessoa
+    private String empresa, contato;
 
-    public Fornecedor(String nome, String contato) {
-        this.nome = nome;
+    public Fornecedor(String nome, String cpf, int id, String empresa, String contato) {
+        super(nome, cpf, id);
+        this.empresa = empresa;
         this.contato = contato;
     }
 
-    public String getNome() {
-        return nome;
+    public String getEmpresa() {
+        return empresa;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
 
     public String getContato() {
@@ -23,11 +23,6 @@ public class Fornecedor {
 
     public void setContato(String contato) {
         this.contato = contato;
-    }
-
-    @Override
-    public String toString() {
-        return "Fornecedor [nome=" + nome + ", contato=" + contato + "]";
     }
 
 }
