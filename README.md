@@ -2,8 +2,6 @@
 
 ![alt text](image.png)
 
-# Projeto Criado por Paul Robert, Gabriel Dybas e Vinicius Moraes
-
 ## Sobre o Projeto
 
 O **Javabar** é uma aplicação destinada a auxiliar estabelecimentos na organização e gestão de seus lucros, produtos, fornecedores, clientes, entre outros aspectos administrativos. Nossa missão é fornecer uma ferramenta prática e eficiente para facilitar o dia a dia de diversos tipos de negócios.
