@@ -19,39 +19,40 @@ public class App {
         int opc;
         boolean sair = false;
 
+        // Criando 3 clientes
+        Cliente cliente1 = new Cliente("Alice Santos", "123.456.789-00", 1, "alice@santos.com", "01/01/1990",
+                "1111-1111");
+        Cliente cliente2 = new Cliente("Bob Marley", "234.567.890-11", 2, "bob@marley.com", "02/02/1985", "2222-2222");
+        Cliente cliente3 = new Cliente("Charlie Bronw", "345.678.901-22", 3, "charlie@bronw.com", "03/03/1980",
+                "3333-3333");
 
-          // Criando 3 clientes
-          Cliente cliente1 = new Cliente("Alice", "123.456.789-00", 1, "alice@delicinha.com", "01/01/1990", "1111-1111");
-          Cliente cliente2 = new Cliente("Bob", "234.567.890-11", 2, "bob@marley.com", "02/02/1985", "2222-2222");
-          Cliente cliente3 = new Cliente("Charlie", "345.678.901-22", 3, "charlie@bronw.com", "03/03/1980", "3333-3333");
-  
-          barControle.addCliente(cliente1);
-          barControle.addCliente(cliente2);
-          barControle.addCliente(cliente3);
-  
-          // Criando 3 fornecedores
-          Fornecedor fornecedor1 = new Fornecedor("Coca-Cola", "456.789.012-33", 1, "AMBEV", "4444-4444");
-          Fornecedor fornecedor2 = new Fornecedor("Juca Alimentos", "567.890.123-44", 2, "Juca Vinas", "5555-5555");
-          Fornecedor fornecedor3 = new Fornecedor("Zé do picolé", "678.901.234-55", 3, "Chupins", "6666-6666");
-  
-          barControle.adicionarFornecedor(fornecedor1);
-          barControle.adicionarFornecedor(fornecedor2);
-          barControle.adicionarFornecedor(fornecedor3);
-  
-          // Criando 6 produtos
-          Produto produto1 = new Produto("Cerveja", 5.00, 100);
-          Produto produto2 = new Produto("Refrigerante", 3.00, 200);
-          Produto produto3 = new Produto("Água", 2.00, 300);
-          Produto produto4 = new Produto("Whisky", 50.00, 50);
-          Produto produto5 = new Produto("Vodka", 40.00, 60);
-          Produto produto6 = new Produto("Vinho", 30.00, 70);
+        barControle.addCliente(cliente1);
+        barControle.addCliente(cliente2);
+        barControle.addCliente(cliente3);
 
-          barControle.adicionarProduto(produto1);
-          barControle.adicionarProduto(produto2);
-          barControle.adicionarProduto(produto3);
-          barControle.adicionarProduto(produto4);
-          barControle.adicionarProduto(produto5);
-          barControle.adicionarProduto(produto6);
+        // Criando 3 fornecedores
+        Fornecedor fornecedor1 = new Fornecedor("Coca-Cola", "456.789.012-33", 1, "AMBEV", "4444-4444");
+        Fornecedor fornecedor2 = new Fornecedor("Cheetos Salgadinhos", "567.890.123-44", 2, "Cheetos", "5555-5555");
+        Fornecedor fornecedor3 = new Fornecedor("Maria Salgados", "678.901.234-55", 3, "Maria Slagdos", "6666-6666");
+
+        barControle.adicionarFornecedor(fornecedor1);
+        barControle.adicionarFornecedor(fornecedor2);
+        barControle.adicionarFornecedor(fornecedor3);
+
+        // Criando 6 produtos
+        Produto produto1 = new Produto("Cerveja", 5.00, 100);
+        Produto produto2 = new Produto("Refrigerante", 5.00, 200);
+        Produto produto3 = new Produto("Água", 2.00, 300);
+        Produto produto4 = new Produto("Whisky", 50.00, 50);
+        Produto produto5 = new Produto("Vodka", 40.00, 60);
+        Produto produto6 = new Produto("Vinho", 30.00, 70);
+
+        barControle.adicionarProduto(produto1);
+        barControle.adicionarProduto(produto2);
+        barControle.adicionarProduto(produto3);
+        barControle.adicionarProduto(produto4);
+        barControle.adicionarProduto(produto5);
+        barControle.adicionarProduto(produto6);
 
         // Loop principal do menu
         do {
@@ -421,7 +422,8 @@ public class App {
                     } else {
                         System.out.println("Lista de Produtos:");
                         for (Produto p : barControle.listarProdutos()) {
-                            System.out.println("ID: " + (barControle.listarProdutos().indexOf(p) + 1) + ", Nome: " + p.getNome() + ", Preço: " + p.getPreco()
+                            System.out.println("ID: " + (barControle.listarProdutos().indexOf(p) + 1) + ", Nome: "
+                                    + p.getNome() + ", Preço: " + p.getPreco()
                                     + ", Estoque: " + p.getEstoque());
                         }
                     }
@@ -518,7 +520,8 @@ public class App {
                     } else {
                         System.out.println("Lista de Comandas:");
                         for (Comanda c : barControle.listarComandas()) {
-                            System.out.println("ID: " + (barControle.listarComandas().indexOf(c) + 1) + ", Cliente: " + c.getCliente().getNome() + ", Total: " + c.getTotal());
+                            System.out.println("ID: " + (barControle.listarComandas().indexOf(c) + 1) + ", Cliente: "
+                                    + c.getCliente().getNome() + ", Total: " + c.getTotal());
                         }
                     }
                     break;
