@@ -1,7 +1,7 @@
 package view;
 
 import java.util.ArrayList;
-
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import controller.ControllerBar;
@@ -112,105 +112,111 @@ public class App {
 
             opc = tecladinho.nextInt();
             tecladinho.nextLine(); // limpar o buffer do teclado
-
-            switch (opc) {
-                case 1:
-                    System.out.println("Adicionar Cliente");
-
-                    System.out.print("Nome: ");
-                    String nome = tecladinho.nextLine();
-
-                    System.out.print("CPF: ");
-                    String cpf = tecladinho.nextLine();
-
-                    System.out.print("Email: ");
-                    String email = tecladinho.nextLine();
-
-                    System.out.print("Data de Nascimento: ");
-                    String dataNascimento = tecladinho.nextLine();
-
-                    System.out.print("Telefone: ");
-                    String telefone = tecladinho.nextLine();
-
-                    int id = barControle.listaClientes().size() + 1;
-                    Cliente novoCliente = new Cliente(nome, cpf, id, email, dataNascimento, telefone);
-                    barControle.addCliente(novoCliente);
-
-                    System.out.println("Cliente adicionado com sucesso!");
-                    break;
-
-                case 2:
-                    if (barControle.listaClientes().isEmpty()) {
-                        System.out.println("Nenhum cliente cadastrado.");
-                    } else {
-                        System.out.println("Alterar Cliente");
-                        System.out.print("ID do Cliente: ");
-                        int idAlterar = tecladinho.nextInt();
-                        tecladinho.nextLine(); // Consumir nova linha
+            try {
+                switch (opc) {
+                    case 1:
+                        System.out.println("Adicionar Cliente");
 
                         System.out.print("Nome: ");
-                        nome = tecladinho.nextLine();
+                        String nome = tecladinho.nextLine();
 
                         System.out.print("CPF: ");
-                        cpf = tecladinho.nextLine();
+                        String cpf = tecladinho.nextLine();
 
                         System.out.print("Email: ");
-                        email = tecladinho.nextLine();
+                        String email = tecladinho.nextLine();
 
                         System.out.print("Data de Nascimento: ");
-                        dataNascimento = tecladinho.nextLine();
+                        String dataNascimento = tecladinho.nextLine();
 
                         System.out.print("Telefone: ");
-                        telefone = tecladinho.nextLine();
+                        String telefone = tecladinho.nextLine();
 
-                        Cliente clienteAlterar = new Cliente(nome, cpf, idAlterar, email, dataNascimento, telefone);
-                        barControle.alterarCliente(idAlterar - 1, clienteAlterar); // -1 para corrigir o índice
+                        int id = barControle.listaClientes().size() + 1;
+                        Cliente novoCliente = new Cliente(nome, cpf, id, email, dataNascimento, telefone);
+                        barControle.addCliente(novoCliente);
 
-                        System.out.println("Cliente alterado com sucesso!");
-                    }
-                    break;
+                        System.out.println("Cliente adicionado com sucesso!");
+                        break;
 
-                case 3:
-                    if (barControle.listaClientes().isEmpty()) {
-                        System.out.println("Nenhum cliente cadastrado.");
-                    } else {
-                        System.out.println("Deletar Cliente");
-                        System.out.print("ID do Cliente: ");
-                        int idDeletar = tecladinho.nextInt();
-                        tecladinho.nextLine(); // Consumir nova linha
+                    case 2:
+                        if (barControle.listaClientes().isEmpty()) {
+                            System.out.println("Nenhum cliente cadastrado.");
+                        } else {
+                            System.out.println("Alterar Cliente");
+                            System.out.print("ID do Cliente: ");
+                            int idAlterar = tecladinho.nextInt();
+                            tecladinho.nextLine(); // Consumir nova linha
 
-                        barControle.removeCliente(idDeletar - 1); // -1 para corrigir o índice
-                        System.out.println("Cliente deletado com sucesso!");
-                    }
-                    break;
+                            System.out.print("Nome: ");
+                            nome = tecladinho.nextLine();
 
-                case 4:
-                    if (barControle.listaClientes().isEmpty()) {
-                        System.out.println("Nenhum cliente foi cadastrado.");
-                    } else {
-                        System.out.println("Lista de Clientes:");
-                        for (Cliente c : barControle.listaClientes()) {
-                            System.out.println("ID: " + c.getId() + ", Nome: " + c.getNome() + ", CPF: " + c.getCpf() +
-                                    ", Email: " + c.getEmail() + ", Data de Nascimento: " + c.getDataNascimento() +
-                                    ", Telefone: " + c.getTelefone());
+                            System.out.print("CPF: ");
+                            cpf = tecladinho.nextLine();
+
+                            System.out.print("Email: ");
+                            email = tecladinho.nextLine();
+
+                            System.out.print("Data de Nascimento: ");
+                            dataNascimento = tecladinho.nextLine();
+
+                            System.out.print("Telefone: ");
+                            telefone = tecladinho.nextLine();
+
+                            Cliente clienteAlterar = new Cliente(nome, cpf, idAlterar, email, dataNascimento, telefone);
+                            barControle.alterarCliente(idAlterar - 1, clienteAlterar); // -1 para corrigir o índice
+
+                            System.out.println("Cliente alterado com sucesso!");
                         }
-                    }
-                    break;
+                        break;
 
-                case 0:
-                    System.out.println("Voltando ao Menu Principal...");
-                    break;
+                    case 3:
+                        if (barControle.listaClientes().isEmpty()) {
+                            System.out.println("Nenhum cliente cadastrado.");
+                        } else {
+                            System.out.println("Deletar Cliente");
+                            System.out.print("ID do Cliente: ");
+                            int idDeletar = tecladinho.nextInt();
+                            tecladinho.nextLine(); // Consumir nova linha
 
-                default:
-                    System.out.println("Opção inválida");
-                    break;
+                            barControle.removeCliente(idDeletar - 1); // -1 para corrigir o índice
+                            System.out.println("Cliente deletado com sucesso!");
+                        }
+                        break;
+
+                    case 4:
+                        if (barControle.listaClientes().isEmpty()) {
+                            System.out.println("Nenhum cliente foi cadastrado.");
+                        } else {
+                            System.out.println("Lista de Clientes:");
+                            for (Cliente c : barControle.listaClientes()) {
+                                System.out.println("ID: " + c.getId() + ", Nome: " + c.getNome() + ", CPF: "
+                                        + c.getCpf() +
+                                        ", Email: " + c.getEmail() + ", Data de Nascimento: " + c.getDataNascimento() +
+                                        ", Telefone: " + c.getTelefone());
+                            }
+                        }
+                        break;
+
+                    case 0:
+                        System.out.println("Voltando ao Menu Principal...");
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida");
+                        break;
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Escolha inválida. Por favor, digite um numero de 0 a 4.");
+                tecladinho.nextLine(); // Limpa o buffer do teclado
             }
-
         } while (opc != 0);
+
     }
 
     public static void gerenciarFornecedores(ControllerBar barControle, Scanner tecladinho) {
-        int opc;
+        int opc = -1;
 
         do {
             System.out.print("-------------------------------------------------\n"
@@ -224,225 +230,232 @@ public class App {
 
             opc = tecladinho.nextInt();
             tecladinho.nextLine(); // limpar o buffer do teclado
+            try {
+                switch (opc) {
+                    case 1:
+                        System.out.println("Adicionar Fornecedor");
 
-            switch (opc) {
-                case 1:
-                    System.out.println("Adicionar Fornecedor");
+                        System.out.print("Nome: ");
+                        String nome = tecladinho.nextLine();
 
-                    System.out.print("Nome: ");
-                    String nome = tecladinho.nextLine();
+                        System.out.print("CPF: ");
+                        String cpf = tecladinho.nextLine();
 
-                    System.out.print("CPF: ");
-                    String cpf = tecladinho.nextLine();
+                        System.out.print("Empresa: ");
+                        String empresa = tecladinho.nextLine();
 
-                    System.out.print("Empresa: ");
-                    String empresa = tecladinho.nextLine();
+                        System.out.print("Contato: ");
+                        String contato = tecladinho.nextLine();
 
-                    System.out.print("Contato: ");
-                    String contato = tecladinho.nextLine();
+                        int id = barControle.listarFornecedores().size() + 1;
+                        Fornecedor novoFornecedor = new Fornecedor(nome, cpf, id, empresa, contato);
+                        barControle.adicionarFornecedor(novoFornecedor);
 
-                    int id = barControle.listarFornecedores().size() + 1;
-                    Fornecedor novoFornecedor = new Fornecedor(nome, cpf, id, empresa, contato);
-                    barControle.adicionarFornecedor(novoFornecedor);
+                        System.out.println("Fornecedor adicionado com sucesso!");
 
-                    System.out.println("Fornecedor adicionado com sucesso!");
+                        break;
 
-                    break;
-
-                case 2:
-                    if (barControle.listarFornecedores().isEmpty()) {
-                        System.out.println("Nenhum fornecedor cadastrado.");
-                    } else {
-                        System.out.println("Alterar Fornecedor");
-                        System.out.print("ID do Fornecedor: ");
-
-                        int idAlterar = tecladinho.nextInt();
-                        tecladinho.nextLine(); // Consumir nova linha
-
-                        int index = barControle.buscarFornecedorPorId(idAlterar);
-
-                        if (index >= 0) {
-                            System.out.print("Nome: ");
-                            nome = tecladinho.nextLine();
-
-                            System.out.print("CPF: ");
-                            cpf = tecladinho.nextLine();
-
-                            System.out.print("Empresa: ");
-                            empresa = tecladinho.nextLine();
-
-                            System.out.print("Contato: ");
-                            contato = tecladinho.nextLine();
-
-                            Fornecedor fornecedorAlterar = new Fornecedor(nome, cpf, idAlterar, empresa, contato);
-                            barControle.alterarFornecedor(idAlterar, fornecedorAlterar);
-
-                            System.out.println("Fornecedor alterado com sucesso!");
+                    case 2:
+                        if (barControle.listarFornecedores().isEmpty()) {
+                            System.out.println("Nenhum fornecedor cadastrado.");
                         } else {
-                            System.out.println("ID de fornecedor inválido.");
+                            System.out.println("Alterar Fornecedor");
+                            System.out.print("ID do Fornecedor: ");
+
+                            int idAlterar = tecladinho.nextInt();
+                            tecladinho.nextLine(); // Consumir nova linha
+
+                            int index = barControle.buscarFornecedorPorId(idAlterar);
+
+                            if (index >= 0) {
+                                System.out.print("Nome: ");
+                                nome = tecladinho.nextLine();
+
+                                System.out.print("CPF: ");
+                                cpf = tecladinho.nextLine();
+
+                                System.out.print("Empresa: ");
+                                empresa = tecladinho.nextLine();
+
+                                System.out.print("Contato: ");
+                                contato = tecladinho.nextLine();
+
+                                Fornecedor fornecedorAlterar = new Fornecedor(nome, cpf, idAlterar, empresa, contato);
+                                barControle.alterarFornecedor(idAlterar, fornecedorAlterar);
+
+                                System.out.println("Fornecedor alterado com sucesso!");
+                            } else {
+                                System.out.println("ID de fornecedor inválido.");
+                            }
                         }
-                    }
-                    break;
+                        break;
 
-                case 3:
-                    if (barControle.listarFornecedores().isEmpty()) {
-                        System.out.println("Nenhum fornecedor cadastrado.");
-                    } else {
-                        System.out.println("Deletar Fornecedor");
-                        System.out.print("ID do Fornecedor: ");
-                        int idDeletar = tecladinho.nextInt();
-                        tecladinho.nextLine(); // Consumir nova linha
-
-                        int index = barControle.buscarFornecedorPorId(idDeletar);
-
-                        if (index >= 0) {
-                            barControle.deletarFornecedor(idDeletar);
-                            System.out.println("Fornecedor deletado com sucesso!");
+                    case 3:
+                        if (barControle.listarFornecedores().isEmpty()) {
+                            System.out.println("Nenhum fornecedor cadastrado.");
                         } else {
-                            System.out.println("ID de fornecedor inválido.");
+                            System.out.println("Deletar Fornecedor");
+                            System.out.print("ID do Fornecedor: ");
+                            int idDeletar = tecladinho.nextInt();
+                            tecladinho.nextLine(); // Consumir nova linha
+
+                            int index = barControle.buscarFornecedorPorId(idDeletar);
+
+                            if (index >= 0) {
+                                barControle.deletarFornecedor(idDeletar);
+                                System.out.println("Fornecedor deletado com sucesso!");
+                            } else {
+                                System.out.println("ID de fornecedor inválido.");
+                            }
                         }
-                    }
-                    break;
+                        break;
 
-                case 4:
-                    if (barControle.listarFornecedores().isEmpty()) {
-                        System.out.println("Nenhum fornecedor foi cadastrado.");
-                    } else {
-                        System.out.println("Lista de Fornecedores:");
-                        for (Fornecedor f : barControle.listarFornecedores()) {
-                            System.out.println("ID: " + f.getId() + ", Nome: " + f.getNome() + ", CPF: " + f.getCpf()
-                                    + ", Empresa: " + f.getEmpresa() + ", Contato: " + f.getContato());
+                    case 4:
+                        if (barControle.listarFornecedores().isEmpty()) {
+                            System.out.println("Nenhum fornecedor foi cadastrado.");
+                        } else {
+                            System.out.println("Lista de Fornecedores:");
+                            for (Fornecedor f : barControle.listarFornecedores()) {
+                                System.out
+                                        .println("ID: " + f.getId() + ", Nome: " + f.getNome() + ", CPF: " + f.getCpf()
+                                                + ", Empresa: " + f.getEmpresa() + ", Contato: " + f.getContato());
+                            }
                         }
-                    }
-                    break;
+                        break;
 
-                case 0:
-                    System.out.println("Voltando ao Menu Principal...");
-                    break;
+                    case 0:
+                        System.out.println("Voltando ao Menu Principal...");
+                        break;
 
-                default:
-                    System.out.println("Opção inválida");
-                    break;
+                    default:
+                        System.out.println("Opção inválida");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Escolha inválida. Por favor, digite um numero de 0 a 4.");
+                tecladinho.nextLine(); // Limpa o buffer do teclado
             }
-
         } while (opc != 0);
     }
 
     public static void gerenciarProdutos(ControllerBar barControle, Scanner tecladinho) {
-        int opc;
+        int opc = -1;
 
         do {
-            System.out.print("-------------------------------------------------\n"
-                    + "Menu de Produtos:\n"
-                    + " 1. Adicionar Produto.\n"
-                    + " 2. Alterar Produto.\n"
-                    + " 3. Deletar Produto.\n"
-                    + " 4. Listar Produtos.\n"
-                    + " 0. Voltar.\n"
-                    + "Digite a opção: \n");
+            try {
+                System.out.print("-------------------------------------------------\n"
+                        + "Menu de Produtos:\n"
+                        + " 1. Adicionar Produto.\n"
+                        + " 2. Alterar Produto.\n"
+                        + " 3. Deletar Produto.\n"
+                        + " 4. Listar Produtos.\n"
+                        + " 0. Voltar.\n"
+                        + "Digite a opção: \n");
 
-            opc = tecladinho.nextInt();
-            tecladinho.nextLine(); // limpar o buffer do teclado
+                opc = tecladinho.nextInt();
+                tecladinho.nextLine(); // limpar o buffer do teclado
 
-            switch (opc) {
-                case 1:
-                    System.out.println("Adicionar Produto");
+                switch (opc) {
+                    case 1:
+                        System.out.println("Adicionar Produto");
 
-                    System.out.print("Nome: ");
-                    String nome = tecladinho.nextLine();
+                        System.out.print("Nome: ");
+                        String nome = tecladinho.nextLine();
 
-                    System.out.print("Preço: ");
-                    double preco = tecladinho.nextDouble();
-                    tecladinho.nextLine(); // Consumir nova linha
-
-                    System.out.print("Estoque: ");
-                    int estoque = tecladinho.nextInt();
-                    tecladinho.nextLine(); // Consumir nova linha
-
-                    Produto novoProduto = new Produto(nome, preco, estoque);
-                    barControle.adicionarProduto(novoProduto);
-
-                    System.out.println("Produto adicionado com sucesso!");
-
-                    break;
-
-                case 2:
-                    if (barControle.listarProdutos().isEmpty()) {
-                        System.out.println("Nenhum produto cadastrado.");
-                    } else {
-                        System.out.println("Alterar Produto");
-                        System.out.print("ID do Produto: ");
-
-                        int idAlterar = tecladinho.nextInt();
+                        System.out.print("Preço: ");
+                        double preco = tecladinho.nextDouble();
                         tecladinho.nextLine(); // Consumir nova linha
 
-                        if (idAlterar > 0 && idAlterar <= barControle.listarProdutos().size()) {
-                            System.out.print("Nome: ");
-                            nome = tecladinho.nextLine();
-
-                            System.out.print("Preço: ");
-                            preco = tecladinho.nextDouble();
-                            tecladinho.nextLine(); // Consumir nova linha
-
-                            System.out.print("Estoque: ");
-                            estoque = tecladinho.nextInt();
-                            tecladinho.nextLine(); // Consumir nova linha
-
-                            Produto produtoAlterar = new Produto(nome, preco, estoque);
-                            barControle.alterarProduto(idAlterar - 1, produtoAlterar);
-
-                            System.out.println("Produto alterado com sucesso!");
-                        } else {
-                            System.out.println("ID de produto inválido.");
-                        }
-                    }
-                    break;
-
-                case 3:
-                    if (barControle.listarProdutos().isEmpty()) {
-                        System.out.println("Nenhum produto cadastrado.");
-                    } else {
-                        System.out.println("Deletar Produto");
-                        System.out.print("ID do Produto: ");
-                        int idDeletar = tecladinho.nextInt();
+                        System.out.print("Estoque: ");
+                        int estoque = tecladinho.nextInt();
                         tecladinho.nextLine(); // Consumir nova linha
 
-                        if (idDeletar > 0 && idDeletar <= barControle.listarProdutos().size()) {
-                            barControle.deletarProduto(idDeletar - 1);
-                            System.out.println("Produto deletado com sucesso!");
+                        Produto novoProduto = new Produto(nome, preco, estoque);
+                        barControle.adicionarProduto(novoProduto);
+
+                        System.out.println("Produto adicionado com sucesso!");
+                        break;
+
+                    case 2:
+                        if (barControle.listarProdutos().isEmpty()) {
+                            System.out.println("Nenhum produto cadastrado.");
                         } else {
-                            System.out.println("ID de produto inválido.");
+                            System.out.println("Alterar Produto");
+                            System.out.print("ID do Produto: ");
+
+                            int idAlterar = tecladinho.nextInt();
+                            tecladinho.nextLine(); // Consumir nova linha
+
+                            if (idAlterar > 0 && idAlterar <= barControle.listarProdutos().size()) {
+                                System.out.print("Nome: ");
+                                nome = tecladinho.nextLine();
+
+                                System.out.print("Preço: ");
+                                preco = tecladinho.nextDouble();
+                                tecladinho.nextLine(); // Consumir nova linha
+
+                                System.out.print("Estoque: ");
+                                estoque = tecladinho.nextInt();
+                                tecladinho.nextLine(); // Consumir nova linha
+
+                                Produto produtoAlterar = new Produto(nome, preco, estoque);
+                                barControle.alterarProduto(idAlterar - 1, produtoAlterar);
+
+                                System.out.println("Produto alterado com sucesso!");
+                            } else {
+                                System.out.println("ID de produto inválido.");
+                            }
                         }
-                    }
-                    break;
+                        break;
 
-                case 4:
-                    if (barControle.listarProdutos().isEmpty()) {
-                        System.out.println("Nenhum produto foi cadastrado.");
-                    } else {
-                        System.out.println("Lista de Produtos:");
-                        for (Produto p : barControle.listarProdutos()) {
-                            System.out.println("ID: " + (barControle.listarProdutos().indexOf(p) + 1) + ", Nome: "
-                                    + p.getNome() + ", Preço: " + p.getPreco()
-                                    + ", Estoque: " + p.getEstoque());
+                    case 3:
+                        if (barControle.listarProdutos().isEmpty()) {
+                            System.out.println("Nenhum produto cadastrado.");
+                        } else {
+                            System.out.println("Deletar Produto");
+                            System.out.print("ID do Produto: ");
+                            int idDeletar = tecladinho.nextInt();
+                            tecladinho.nextLine(); // Consumir nova linha
+
+                            if (idDeletar > 0 && idDeletar <= barControle.listarProdutos().size()) {
+                                barControle.deletarProduto(idDeletar - 1);
+                                System.out.println("Produto deletado com sucesso!");
+                            } else {
+                                System.out.println("ID de produto inválido.");
+                            }
                         }
-                    }
-                    break;
+                        break;
 
-                case 0:
-                    System.out.println("Voltando ao Menu Principal...");
-                    break;
+                    case 4:
+                        if (barControle.listarProdutos().isEmpty()) {
+                            System.out.println("Nenhum produto foi cadastrado.");
+                        } else {
+                            System.out.println("Lista de Produtos:");
+                            for (Produto p : barControle.listarProdutos()) {
+                                System.out.println("ID: " + (barControle.listarProdutos().indexOf(p) + 1) + ", Nome: "
+                                        + p.getNome() + ", Preço: " + p.getPreco()
+                                        + ", Estoque: " + p.getEstoque());
+                            }
+                        }
+                        break;
 
-                default:
-                    System.out.println("Opção inválida");
-                    break;
+                    case 0:
+                        System.out.println("Voltando ao Menu Principal...");
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Escolha inválida. Por favor, digite um numero de 0 a 4.");
+                tecladinho.nextLine(); // Limpa o buffer do teclado
             }
-
         } while (opc != 0);
     }
 
     public static void gerenciarComandas(ControllerBar barControle, Scanner tecladinho) {
-        int opc;
+        int opc = -1;
 
         do {
             System.out.print("-------------------------------------------------\n"
@@ -454,87 +467,96 @@ public class App {
                     + " 0. Voltar.\n"
                     + "Digite a opção: \n");
 
-            opc = tecladinho.nextInt();
-            tecladinho.nextLine(); // limpar o buffer do teclado
+            try {
+                opc = tecladinho.nextInt();
+                tecladinho.nextLine(); // limpar o buffer do teclado
 
-            switch (opc) {
-                case 1:
-                    System.out.println("Abrir Comanda");
+                switch (opc) {
+                    case 1:
+                        System.out.println("Abrir Comanda");
 
-                    System.out.print("ID do Cliente: ");
-                    int clienteId = tecladinho.nextInt();
-                    tecladinho.nextLine(); // Consumir nova linha
+                        System.out.print("ID do Cliente: ");
+                        int clienteId = tecladinho.nextInt();
+                        tecladinho.nextLine(); // Consumir nova linha
 
-                    if (clienteId > 0 && clienteId <= barControle.listaClientes().size()) {
-                        Cliente cliente = barControle.listaClientes().get(clienteId - 1); // -1 para corrigir o índice
-                        Comanda comanda = new Comanda(cliente, new ArrayList<>(), 0);
-                        barControle.adicionarComanda(comanda);
+                        if (clienteId > 0 && clienteId <= barControle.listaClientes().size()) {
+                            Cliente cliente = barControle.listaClientes().get(clienteId - 1); // -1 para corrigir o
+                                                                                              // índice
+                            Comanda comanda = new Comanda(cliente, new ArrayList<>(), 0);
+                            barControle.adicionarComanda(comanda);
 
-                        System.out.println("Comanda aberta com sucesso!");
-                    } else {
-                        System.out.println("ID de cliente inválido.");
-                    }
-                    break;
-
-                case 2:
-                    System.out.println("Adicionar Produto na Comanda");
-
-                    System.out.print("ID da Comanda: ");
-                    int comandaId = tecladinho.nextInt();
-                    tecladinho.nextLine(); // Consumir nova linha
-
-                    System.out.print("ID do Produto: ");
-                    int produtoId = tecladinho.nextInt();
-                    tecladinho.nextLine(); // Consumir nova linha
-
-                    if (comandaId > 0 && comandaId <= barControle.listarComandas().size() &&
-                            produtoId > 0 && produtoId <= barControle.listarProdutos().size()) {
-                        Produto produto = barControle.listarProdutos().get(produtoId - 1); // -1 para corrigir o índice
-                        Comanda comanda = barControle.listarComandas().get(comandaId - 1); // -1 para corrigir o índice
-                        comanda.getProdutos().add(produto);
-                        System.out.println("Produto adicionado na comanda com sucesso!");
-                    } else {
-                        System.out.println("ID de comanda ou produto inválido.");
-                    }
-                    break;
-
-                case 3:
-                    System.out.println("Fechar Comanda");
-
-                    System.out.print("ID da Comanda: ");
-                    comandaId = tecladinho.nextInt();
-                    tecladinho.nextLine(); // Consumir nova linha
-
-                    if (comandaId > 0 && comandaId <= barControle.listarComandas().size()) {
-                        Comanda comanda = barControle.listarComandas().get(comandaId - 1); // -1 para corrigir o índice
-                        comanda.setTotal(comanda.getTotal()); // Calcular e setar o total
-                        System.out.println("Comanda fechada com sucesso! Total: " + comanda.getTotal());
-                    } else {
-                        System.out.println("ID de comanda inválido.");
-                    }
-                    break;
-
-                case 4:
-                    if (barControle.listarComandas().isEmpty()) {
-                        System.out.println("Nenhuma comanda foi aberta.");
-                    } else {
-                        System.out.println("Lista de Comandas:");
-                        for (Comanda c : barControle.listarComandas()) {
-                            System.out.println("ID: " + (barControle.listarComandas().indexOf(c) + 1) + ", Cliente: "
-                                    + c.getCliente().getNome() + ", Total: " + c.getTotal());
+                            System.out.println("Comanda aberta com sucesso!");
+                        } else {
+                            System.out.println("ID de cliente inválido.");
                         }
-                    }
-                    break;
+                        break;
 
-                case 0:
-                    System.out.println("Voltando ao Menu Principal...");
-                    break;
+                    case 2:
+                        System.out.println("Adicionar Produto na Comanda");
 
-                default:
-                    System.out.println("Opção inválida");
-                    break;
+                        System.out.print("ID da Comanda: ");
+                        int comandaId = tecladinho.nextInt();
+                        tecladinho.nextLine(); // Consumir nova linha
+
+                        System.out.print("ID do Produto: ");
+                        int produtoId = tecladinho.nextInt();
+                        tecladinho.nextLine(); // Consumir nova linha
+
+                        if (comandaId > 0 && comandaId <= barControle.listarComandas().size() &&
+                                produtoId > 0 && produtoId <= barControle.listarProdutos().size()) {
+                            Produto produto = barControle.listarProdutos().get(produtoId - 1); // -1 para corrigir o
+                                                                                               // índice
+                            Comanda comanda = barControle.listarComandas().get(comandaId - 1); // -1 para corrigir o
+                                                                                               // índice
+                            comanda.getProdutos().add(produto);
+                            System.out.println("Produto adicionado na comanda com sucesso!");
+                        } else {
+                            System.out.println("ID de comanda ou produto inválido.");
+                        }
+                        break;
+
+                    case 3:
+                        System.out.println("Fechar Comanda");
+
+                        System.out.print("ID da Comanda: ");
+                        comandaId = tecladinho.nextInt();
+                        tecladinho.nextLine(); // Consumir nova linha
+
+                        if (comandaId > 0 && comandaId <= barControle.listarComandas().size()) {
+                            Comanda comanda = barControle.listarComandas().get(comandaId - 1); // -1 para corrigir o
+                                                                                               // índice
+                            comanda.setTotal(comanda.getTotal()); // Calcular e setar o total
+                            System.out.println("Comanda fechada com sucesso! Total: " + comanda.getTotal());
+                        } else {
+                            System.out.println("ID de comanda inválido.");
+                        }
+                        break;
+
+                    case 4:
+                        if (barControle.listarComandas().isEmpty()) {
+                            System.out.println("Nenhuma comanda foi aberta.");
+                        } else {
+                            System.out.println("Lista de Comandas:");
+                            for (Comanda c : barControle.listarComandas()) {
+                                System.out
+                                        .println("ID: " + (barControle.listarComandas().indexOf(c) + 1) + ", Cliente: "
+                                                + c.getCliente().getNome() + ", Total: " + c.getTotal());
+                            }
+                        }
+                        break;
+
+                    case 0:
+                        System.out.println("Voltando ao Menu Principal...");
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Escolha inválida. Por favor, digite um numero de 0 a 4.");
+                tecladinho.nextLine(); // Limpa o buffer do teclado
             }
-
         } while (opc != 0);
     }
 }
