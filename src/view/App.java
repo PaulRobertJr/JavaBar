@@ -1,7 +1,6 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import controller.ControllerBar;
@@ -65,40 +64,43 @@ public class App {
                     + " 5. Relatórios.\n"
                     + " 0. Sair.\n"
                     + "Digite a opção: \n");
-            opc = tecladinho.nextInt();
-            tecladinho.nextLine(); // Limpa o buffer do teclado
 
-            switch (opc) {
-                case 1:
-                    gerenciarClientes(barControle, tecladinho);
-                    break;
-                case 2:
-                    gerenciarFornecedores(barControle, tecladinho);
-                    break;
-                case 3:
-                    gerenciarProdutos(barControle, tecladinho);
-                    break;
-                case 4:
-                    gerenciarComandas(barControle, tecladinho);
-                    break;
-                case 5:
-                    // incluir método de CARD.
-                    break;
-                case 0:
-                    sair = true;
-                    System.out.println("Saindo...");
-                    break;
-                default:
-                    System.out.println("Opção inválida");
-                    break;
+            tecladinho.nextLine();
+            try {
+                opc = Integer.parseInt(tecladinho.nextLine());
+                switch (opc) {
+                    case 1:
+                        gerenciarClientes(barControle, tecladinho);
+                        break;
+                    case 2:
+                        gerenciarFornecedores(barControle, tecladinho);
+                        break;
+                    case 3:
+                        gerenciarProdutos(barControle, tecladinho);
+                        break;
+                    case 4:
+                        gerenciarComandas(barControle, tecladinho);
+                        break;
+                    case 5:
+                        // incluir método de CARD.
+                        break;
+                    case 0:
+                        sair = true;
+                        System.out.println("Saindo...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida, digite um numero de 0 a 5.");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Digite um número.");
             }
-        } while (!sair); // O loop continua enquanto o usuário não escolher sair
-
-        tecladinho.close(); // Fechar o Scanner
+        } while (!sair);
+        tecladinho.close();
     }
 
     public static void gerenciarClientes(ControllerBar barControle, Scanner tecladinho) {
-        int opc;
+        int opc = -1;
 
         do {
             System.out.print("-------------------------------------------------\n"
@@ -110,9 +112,9 @@ public class App {
                     + " 0. Voltar.\n"
                     + "Digite a opção: \n");
 
-            opc = tecladinho.nextInt();
-            tecladinho.nextLine(); // limpar o buffer do teclado
+            tecladinho.nextLine();
             try {
+                opc = Integer.parseInt(tecladinho.nextLine());
                 switch (opc) {
                     case 1:
                         System.out.println("Adicionar Cliente");
@@ -146,7 +148,7 @@ public class App {
                             System.out.println("Alterar Cliente");
                             System.out.print("ID do Cliente: ");
                             int idAlterar = tecladinho.nextInt();
-                            tecladinho.nextLine(); // Consumir nova linha
+                            tecladinho.nextLine();
 
                             System.out.print("Nome: ");
                             nome = tecladinho.nextLine();
@@ -164,7 +166,7 @@ public class App {
                             telefone = tecladinho.nextLine();
 
                             Cliente clienteAlterar = new Cliente(nome, cpf, idAlterar, email, dataNascimento, telefone);
-                            barControle.alterarCliente(idAlterar - 1, clienteAlterar); // -1 para corrigir o índice
+                            barControle.alterarCliente(idAlterar - 1, clienteAlterar);
 
                             System.out.println("Cliente alterado com sucesso!");
                         }
@@ -177,9 +179,9 @@ public class App {
                             System.out.println("Deletar Cliente");
                             System.out.print("ID do Cliente: ");
                             int idDeletar = tecladinho.nextInt();
-                            tecladinho.nextLine(); // Consumir nova linha
+                            tecladinho.nextLine();
 
-                            barControle.removeCliente(idDeletar - 1); // -1 para corrigir o índice
+                            barControle.removeCliente(idDeletar - 1);
                             System.out.println("Cliente deletado com sucesso!");
                         }
                         break;
@@ -207,9 +209,9 @@ public class App {
                         break;
                 }
 
-            } catch (InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("Escolha inválida. Por favor, digite um numero de 0 a 4.");
-                tecladinho.nextLine(); // Limpa o buffer do teclado
+                tecladinho.nextLine();
             }
         } while (opc != 0);
 
@@ -228,9 +230,9 @@ public class App {
                     + " 0. Voltar.\n"
                     + "Digite a opção: \n");
 
-            opc = tecladinho.nextInt();
-            tecladinho.nextLine(); // limpar o buffer do teclado
+            tecladinho.nextLine();
             try {
+                opc = Integer.parseInt(tecladinho.nextLine());
                 switch (opc) {
                     case 1:
                         System.out.println("Adicionar Fornecedor");
@@ -263,7 +265,7 @@ public class App {
                             System.out.print("ID do Fornecedor: ");
 
                             int idAlterar = tecladinho.nextInt();
-                            tecladinho.nextLine(); // Consumir nova linha
+                            tecladinho.nextLine();
 
                             int index = barControle.buscarFornecedorPorId(idAlterar);
 
@@ -297,7 +299,7 @@ public class App {
                             System.out.println("Deletar Fornecedor");
                             System.out.print("ID do Fornecedor: ");
                             int idDeletar = tecladinho.nextInt();
-                            tecladinho.nextLine(); // Consumir nova linha
+                            tecladinho.nextLine();
 
                             int index = barControle.buscarFornecedorPorId(idDeletar);
 
@@ -331,9 +333,9 @@ public class App {
                         System.out.println("Opção inválida");
                         break;
                 }
-            } catch (InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("Escolha inválida. Por favor, digite um numero de 0 a 4.");
-                tecladinho.nextLine(); // Limpa o buffer do teclado
+                tecladinho.nextLine();
             }
         } while (opc != 0);
     }
@@ -343,6 +345,7 @@ public class App {
 
         do {
             try {
+                opc = Integer.parseInt(tecladinho.nextLine());
                 System.out.print("-------------------------------------------------\n"
                         + "Menu de Produtos:\n"
                         + " 1. Adicionar Produto.\n"
@@ -353,7 +356,7 @@ public class App {
                         + "Digite a opção: \n");
 
                 opc = tecladinho.nextInt();
-                tecladinho.nextLine(); // limpar o buffer do teclado
+                tecladinho.nextLine();
 
                 switch (opc) {
                     case 1:
@@ -364,11 +367,11 @@ public class App {
 
                         System.out.print("Preço: ");
                         double preco = tecladinho.nextDouble();
-                        tecladinho.nextLine(); // Consumir nova linha
+                        tecladinho.nextLine();
 
                         System.out.print("Estoque: ");
                         int estoque = tecladinho.nextInt();
-                        tecladinho.nextLine(); // Consumir nova linha
+                        tecladinho.nextLine();
 
                         Produto novoProduto = new Produto(nome, preco, estoque);
                         barControle.adicionarProduto(novoProduto);
@@ -384,7 +387,7 @@ public class App {
                             System.out.print("ID do Produto: ");
 
                             int idAlterar = tecladinho.nextInt();
-                            tecladinho.nextLine(); // Consumir nova linha
+                            tecladinho.nextLine();
 
                             if (idAlterar > 0 && idAlterar <= barControle.listarProdutos().size()) {
                                 System.out.print("Nome: ");
@@ -392,11 +395,11 @@ public class App {
 
                                 System.out.print("Preço: ");
                                 preco = tecladinho.nextDouble();
-                                tecladinho.nextLine(); // Consumir nova linha
+                                tecladinho.nextLine();
 
                                 System.out.print("Estoque: ");
                                 estoque = tecladinho.nextInt();
-                                tecladinho.nextLine(); // Consumir nova linha
+                                tecladinho.nextLine();
 
                                 Produto produtoAlterar = new Produto(nome, preco, estoque);
                                 barControle.alterarProduto(idAlterar - 1, produtoAlterar);
@@ -415,7 +418,7 @@ public class App {
                             System.out.println("Deletar Produto");
                             System.out.print("ID do Produto: ");
                             int idDeletar = tecladinho.nextInt();
-                            tecladinho.nextLine(); // Consumir nova linha
+                            tecladinho.nextLine();
 
                             if (idDeletar > 0 && idDeletar <= barControle.listarProdutos().size()) {
                                 barControle.deletarProduto(idDeletar - 1);
@@ -447,9 +450,9 @@ public class App {
                         System.out.println("Opção inválida");
                         break;
                 }
-            } catch (InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("Escolha inválida. Por favor, digite um numero de 0 a 4.");
-                tecladinho.nextLine(); // Limpa o buffer do teclado
+                tecladinho.nextLine();
             }
         } while (opc != 0);
     }
@@ -468,8 +471,8 @@ public class App {
                     + "Digite a opção: \n");
 
             try {
-                opc = tecladinho.nextInt();
-                tecladinho.nextLine(); // limpar o buffer do teclado
+                opc = Integer.parseInt(tecladinho.nextLine());
+                tecladinho.nextLine();
 
                 switch (opc) {
                     case 1:
@@ -477,7 +480,7 @@ public class App {
 
                         System.out.print("ID do Cliente: ");
                         int clienteId = tecladinho.nextInt();
-                        tecladinho.nextLine(); // Consumir nova linha
+                        tecladinho.nextLine();
 
                         if (clienteId > 0 && clienteId <= barControle.listaClientes().size()) {
                             Cliente cliente = barControle.listaClientes().get(clienteId - 1); // -1 para corrigir o
@@ -496,11 +499,11 @@ public class App {
 
                         System.out.print("ID da Comanda: ");
                         int comandaId = tecladinho.nextInt();
-                        tecladinho.nextLine(); // Consumir nova linha
+                        tecladinho.nextLine();
 
                         System.out.print("ID do Produto: ");
                         int produtoId = tecladinho.nextInt();
-                        tecladinho.nextLine(); // Consumir nova linha
+                        tecladinho.nextLine();
 
                         if (comandaId > 0 && comandaId <= barControle.listarComandas().size() &&
                                 produtoId > 0 && produtoId <= barControle.listarProdutos().size()) {
@@ -553,7 +556,7 @@ public class App {
                         System.out.println("Opção inválida");
                         break;
                 }
-            } catch (InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("Escolha inválida. Por favor, digite um numero de 0 a 4.");
                 tecladinho.nextLine(); // Limpa o buffer do teclado
             }
